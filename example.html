@@ -1,0 +1,89 @@
+<link href="kanbun.css" rel="stylesheet" />
+<script src="kanbun.js"></script>
+
+<style>
+  body > div {
+    margin: 0 auto 1.5em;
+    width: 840px;
+    max-width: 100%;
+  }
+  textarea {
+    width: 100%;
+    font-size: 1rem;
+    padding: 5px;
+  }
+  label {
+    display: block;
+    margin: 0 0 0.5em 1.5em;
+  }
+  label input {
+    width: 1em;
+    margin: 0 0.5em 0 -1.5em;
+  }
+</style>
+
+<div>This is a 漢文訓読<sub><em>kanbun-kundoku</em></sub> HTML display solution (maybe the best solution) supporting both アキ組<sub><em>akigumi</em></sub> and ベタ組<sub><em>betagumi</em></sub>. It converts annotated kanbun text to HTML and displays it.</div>
+<div>
+  <textarea rows="10" id="kanbun-text"></textarea>
+</div>
+<div>
+  <button type="button" onclick="convert()">Convert!</button>
+</div>
+<div>
+  <label class="radio">
+    <input type="radio" name="betagumi" onclick="check(this, false)" autocomplete="off" checked="checked"
+    />アキ組<sub><em>akigumi</em></sub>
+  </label>
+  <label class="radio">
+    <input type="radio" name="betagumi" onclick="check(this, true)" autocomplete="off"
+    />ベタ組<sub><em>betagumi</em></sub>
+  </label>
+</div>
+<div>
+  <label>
+    <input type="checkbox" name="kanbun" onclick="check(this)" autocomplete="off" checked="checked"
+    />Use kanbun style
+  </label>
+  <label>
+    <input type="checkbox" name="okurigana-sinking" onclick="check(this)" autocomplete="off" checked="checked"
+    />Make 送り仮名<sub><em>okurigana</em></sub> sink 1/4 kanji-height when without 振り仮名<sub><em>furigana</em></sub>
+  </label>
+  <label>
+    <input type="checkbox" name="split-touching-kana" onclick="check(this)" autocomplete="off" checked="checked"
+    />Split adjacent kana of different kanji if they touch with each other (effective only under ベタ組<sub><em>betagumi</em></sub>)
+  </label>
+  <label>
+    <input type="checkbox" name="furigana-center-align" onclick="check(this)" autocomplete="off"
+    />Align 振り仮名<sub><em>furigana</em></sub> to the center of kanji when without 送り仮名<sub><em>okurigana</em></sub> (effective only under ベタ組<sub><em>betagumi</em></sub>)
+  </label>
+  <label>
+    <input type="checkbox" name="show-borders" onclick="check(this)" autocomplete="off"
+    />Show borders of elements (for debugging)
+  </label>
+</div>
+<div>
+  <div class="kanbun okurigana-sinking split-touching-kana" id="sample"></div>
+</div>
+<div>
+  <a href="https://github.com/untunt/kanbunHTML">Check out kanbunHTML on GitHub</a>
+</div>
+
+<script>
+  const text = document.getElementById("kanbun-text");
+  const sample = document.getElementById("sample");
+  function convert() {
+    sample.innerHTML = "<p>" + text.value.replace(/\n/g, "</p><p>") + "</p>";
+    convertKanbunDiv(sample);
+  }
+  function check(box, v = box.checked) {
+    sample.classList[v ? "add" : "remove"](box.name);
+  }
+  text.value = [
+    "秦王以テ[二]十五城ヲ[一]請フ[レ]易(か)ヘンコトヲ[二]寡人之璧ニ[一]。可キヤ[レ]予(あた)フ不(いな)ヤ。",
+    "使メヨ[人]籍(せき)ヲシテ誠ニ不[乙]以テ[下]蓄(やしな)ヒ[二]妻子ヲ[一]憂(うれ)フルヲ[中]飢(き)寒(かん)ヲ[上]乱サ[甲レ]心ヲ，有リテ[レ]銭(ぜに)以(もつ)テ済(な)サ[地]医薬ヲ[天]。",
+    "未(いま)ダ«ル»[レ]足(た)ラ[二]与(とも)ニ議スルニ[一]也。",
+    "孤之有ルハ[二]孔明[一]，猶(な)ホ‹ごと›«キ»[二]魚之有ルガ[一レ]水也。",
+    "未ダ‹ず›[二]嘗テ飲マ[一レ]酒ヲ。",
+  ].join('\n')
+  convert();
+</script>
