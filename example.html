@@ -6,6 +6,11 @@
     margin: 0 auto 1.5em;
     width: 840px;
     max-width: 100%;
+    min-height: 1em;
+  }
+  body > div button:first-of-type {
+    margin-left: 0;
+    margin-right: 2em;
   }
   textarea {
     width: 100%;
@@ -15,19 +20,31 @@
   label {
     display: block;
     margin: 0 0 0.5em 1.5em;
+    width: fit-content;
   }
+  label.radio {
+    float: left;
+    margin-right: 2em;
+}
   label input {
     width: 1em;
     margin: 0 0.5em 0 -1.5em;
   }
 </style>
 
-<div>This is a 漢文訓読<sub><em>kanbun-kundoku</em></sub> HTML display solution (maybe the best solution) supporting both アキ組<sub><em>akigumi</em></sub> and ベタ組<sub><em>betagumi</em></sub>. It converts annotated kanbun text to HTML and displays it.</div>
+<div>This is a 漢文訓読<sub><em>kanbun-kundoku</em></sub> HTML display solution (maybe the best solution) supporting both アキ組<sub><em>akigumi</em></sub> and ベタ組<sub><em>betagumi</em></sub> typesetting. It converts annotated kanbun text to HTML and displays it.</div>
 <div>
   <textarea rows="10" id="kanbun-text"></textarea>
 </div>
 <div>
-  <button type="button" onclick="convert()">Convert!</button>
+  <button type="button" onclick="convert()">Convert!</button>Insert:
+  <button type="button" onclick="insertPair('‹', '›');">再読文字振り仮名</button>
+  <button type="button" onclick="insertPair('«', '»')">再読文字送り仮名</button>
+  <button type="button" onclick="insert('―')">たて点 ―</button>
+  <button type="button" onclick="insert('〻')">二の字点〻</button>
+</div>
+<div>
+  <div class="kanbun okurigana-sinking split-touching-kana" id="sample"></div>
 </div>
 <div>
   <label class="radio">
@@ -62,28 +79,36 @@
   </label>
 </div>
 <div>
-  <div class="kanbun okurigana-sinking split-touching-kana" id="sample"></div>
-</div>
-<div>
   <a href="https://github.com/untunt/kanbunHTML">Check out kanbunHTML on GitHub</a>
 </div>
 
 <script>
-  const text = document.getElementById("kanbun-text");
+  const textarea = document.getElementById("kanbun-text");
   const sample = document.getElementById("sample");
   function convert() {
-    sample.innerHTML = "<p>" + text.value.replace(/\n/g, "</p><p>") + "</p>";
+    sample.innerHTML = "<p>" + textarea.value.replace(/\n/g, "</p><p>") + "</p>";
     convertKanbunDiv(sample);
   }
-  function check(box, v = box.checked) {
-    sample.classList[v ? "add" : "remove"](box.name);
+  function insertPair(left, right) {
+    let s = textarea.value;
+    let l = textarea.selectionStart;
+    let r = textarea.selectionEnd;
+    console.log(s.substr(0, l));
+    console.log(s.substr(l, r));
+    console.log(s.substr(r));
+    textarea.value = s.substr(0, l) + left + s.substr(l, r - l) + right + s.substr(r);
+    textarea.selectionStart = r + left.length + right.length;
+    textarea.selectionEnd = textarea.selectionStart;
+    textarea.focus();
   }
-  text.value = [
-    "秦王以テ[二]十五城ヲ[一]請フ[レ]易(か)ヘンコトヲ[二]寡人之璧ニ[一]。可キヤ[レ]予(あた)フ不(いな)ヤ。",
-    "使メヨ[人]籍(せき)ヲシテ誠ニ不[乙]以テ[下]蓄(やしな)ヒ[二]妻子ヲ[一]憂(うれ)フルヲ[中]飢(き)寒(かん)ヲ[上]乱サ[甲レ]心ヲ，有リテ[レ]銭(ぜに)以(もつ)テ済(な)サ[地]医薬ヲ[天]。",
-    "未(いま)ダ«ル»[レ]足(た)ラ[二]与(とも)ニ議スルニ[一]也。",
-    "孤之有ルハ[二]孔明[一]，猶(な)ホ‹ごと›«キ»[二]魚之有ルガ[一レ]水也。",
-    "未ダ‹ず›[二]嘗テ飲マ[一レ]酒ヲ。",
+  function insert(str) { insertPair('', str); }
+  function check(box, v = box.checked) { sample.classList[v ? "add" : "remove"](box.name); }
+  textarea.value = [
+    "感ジテハ[レ]時ニ花ニモ濺(そそ)ギ[レ]淚ヲ，恨ミデハ[レ]別レヲ鳥ニモ驚カス[レ]心ヲ。",
+    "使メバ[人]籍(せき)ヲシテ誠ニ不[乙]以テ[下]畜(やしな)ヒ[二]妻子ヲ[一]，憂フルヲ[中]饑(き)寒(かん)ヲ[上]亂サ[甲レ]心ヲ，有リテ[二]錢財[一]以(もつ)テ濟(な)サ[地]醫藥ヲ[天]…",
+    "子曰ク，盍ゾ«ル»[三]各〻言ハ[二]爾ノ志ヲ[一]。",
+    "孤之有ルハ[二]孔明[一]，猶ホ‹ごと›«キ»[二]魚之有ルガ[一レ]水也。",
+    "此レ乃チ信(しん)ノ之‘所―[三]以’(ゆゑん)為ル[二]陛下ノ禽(とりこ)ト[一]也。",
   ].join('\n')
   convert();
 </script>

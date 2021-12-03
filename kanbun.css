@@ -2,13 +2,23 @@
   writing-mode: vertical-rl;
   font-size: 2rem;
   line-height: 100%;
-  font-family: YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+  font-family: "A-OTF Shuei Mincho Pr6N", YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+  font-weight: 375;
 
   height: 600px;
   padding: 5px;
   padding-bottom: 25px;
   max-width: 95%;
   overflow-x: auto;
+}
+
+.kanbun .dash,
+.kanbun .ellipsis {
+  font-family: YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+}
+
+.kanbun .kaeriten ~ .ellipsis {
+  margin-top: 0.5em;
 }
 
 .kanbun p {
@@ -24,7 +34,7 @@
 .kanbun sup,
 .kanbun sub {
   font-size: 50%;
-  font-weight: 600;
+  font-weight: 545;
   line-height: 100%;
 }
 
@@ -142,6 +152,14 @@
   display: inline-block;
   min-height: 2em;
   text-align: center;
+}
+
+.kanbun .punctuation ~ .punctuation {
+  margin-top: 0.5em;
+}
+
+.kanbun:not(.betagumi) .punctuation ~ .right-corner-bracket {
+  margin-top: 0.375em;
 }
 
 .kanbun.betagumi .dash {

@@ -4,6 +4,7 @@ const brackets = {
     '{': '}', // kaeriten
     '‹': '›', // furigana for saidokumoji
     '«': '»', // okurigana for saidokumoji
+    //'<': '>', // HTML tag
 };
 const leftBrackets = Object.keys(brackets);
 const rightBrackets = Object.values(brackets);
@@ -38,8 +39,11 @@ function toHTML(str) {
     str = str.replace(/}{/g, '');
     str = str.replace(new RegExp(`”([${leftBracketsStr}])`, 'g'), '$1');
     str = str.replace(new RegExp(`([${rightBracketsStr}])(“)`, 'g'), '$1”$2');
-    str = str.replace(/”“⌊([―・、，。「」])⌋/g, '<span class="kunten punctuation">$1</span>');
+    str = str.replace(/”“⌊([〻―・、，。…「」『』])⌋/g, '<span class="kunten punctuation">$1</span>');
+    str = str.replace(/(punctuation">)(〻)/g, 'ninojiten $1<sup>$2</sup>');
     str = str.replace(/(punctuation">―)/g, 'dash $1');
+    str = str.replace(/(punctuation">…)/g, 'ellipsis $1');
+    str = str.replace(/(punctuation">[」』])/g, 'right-corner-bracket $1');
 
     str = str.replace(/“([^”\(\)]*”)/g, '<span class="unit">$1#'); // no furigana, use no <ruby>; use ”# as a non-ruby closing mark
     str = str.replace(/“/g, '<ruby class="unit">');
