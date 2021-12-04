@@ -37,7 +37,7 @@ Several class values can be given to the kanbun `<div>`:
 
 - `kanbun`: Display in kanbun style
 - `betagumi`: Use solid setting (<span lang="ja" title="betagumi">ベタ組</span>) (the default is fixed inter-character spacing setting (<span lang="ja" title="akigumi">アキ組</span>))
-- `okurigana-sinking`: Make _okurigana_ (<span lang="ja" title="okurigana">送り仮名</span>) sink 1/4 em height when without _furigana
+- `okurigana-sinking`: Make _okurigana_ (<span lang="ja" title="okurigana">送り仮名</span>) sink 1/4 em height when without _furigana_ (<span lang="ja" title="furigana">振り仮名</span>)
 - `split-touching-kana`: When using solid setting (<span lang="ja" title="betagumi">ベタ組</span>), insert 1/2 em spacing between two adjacent kanji if their kana touch with each other
 - `furigana-top-align`: When using solid setting (<span lang="ja" title="betagumi">ベタ組</span>), align _furigana_ (<span lang="ja" title="furigana">振り仮名</span>) to the center of kanji when without _okurigana_ (<span lang="ja" title="okurigana">送り仮名</span>)
 - `show-borders`: Show borders of elements (for debugging)

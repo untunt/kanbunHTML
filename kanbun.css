@@ -5,8 +5,7 @@
   font-weight: 375;
 
   height: 600px;
-  padding: 5px;
-  padding-bottom: 25px;
+  padding: 1.2em 0.2em;
   max-width: 95%;
   overflow-x: auto;
 }
@@ -14,7 +13,8 @@
 .kanbun,
 .kanbun:lang(ja),
 .kanbun :lang(ja) {
-  font-family: "A-OTF Shuei Mincho Pr6N", YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
+  font-family: "A-OTF Shuei Mincho Pr6N", YuMincho, "Yu Mincho",
+    "Hiragino Mincho ProN", "MS Mincho", serif;
 }
 
 .kanbun .dash,
@@ -48,10 +48,20 @@
   vertical-align: middle;
   grid-template-rows: 0.5em 1em 0.5em;
   grid-template-columns: 0.5em 0.5em 0 1em;
+  margin: 0 0.0625em;
+}
+
+.kanbun .has-multiple-kanji {
+  grid-template-columns: auto 0 0 1em;
 }
 
 .kanbun.betagumi .unit {
   grid-template-columns: 0.5em 0.5em auto 1fr;
+  margin: 0;
+}
+
+.kanbun.betagumi .has-multiple-kanji {
+  grid-template-columns: auto 0 auto 1fr;
 }
 
 .kanbun.betagumi .has-less-than-3-furigana.has-okurigana {
@@ -59,7 +69,7 @@
 }
 
 .kanbun.betagumi.split-touching-kana
-  .next-unit-has-furigana:not(.has-okurigana)
+  .next-unit-has-furigana:not(.has-okurigana):not(.has-multiple-kanji.has-less-than-3-furigana)
   .furigana {
   margin-bottom: 1em;
 }
@@ -70,11 +80,32 @@
   height: 1em;
 }
 
+.kanbun .has-multiple-kanji .kanji {
+  height: max-content;
+}
+
+.kanbun .has-multiple-kanji .unit {
+  grid-template-rows: 0 1em 0;
+  margin: 0;
+}
+
+.kanbun:not(.betagumi) .has-multiple-kanji .unit:last-of-type {
+  margin-bottom: -1em;
+}
+
 .kanbun .furigana {
   grid-row: 1;
   grid-column: 1 / 4;
   height: max-content;
   justify-self: center;
+}
+
+.kanbun .has-multiple-kanji .furigana {
+  height: -moz-available;
+  height: -webkit-fill-available;
+  height: fill-available;
+  text-align: justify;
+  text-align-last: justify;
 }
 
 .kanbun.betagumi .has-okurigana.has-less-than-3-furigana .furigana {

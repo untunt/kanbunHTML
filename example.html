@@ -8,15 +8,20 @@
     max-width: 100%;
     min-height: 1em;
   }
-  .buttons,
-  .radios {
-    display: flex;
-  }
-  .buttons > * {
-    margin: auto 0;
+  .buttons {
+    display: grid;
+    align-items: center;
   }
   .buttons > div:first-of-type {
     margin-right: 2em;
+  }
+  #lang-select.all ~ .buttons > div:nth-of-type(2),
+  #lang-select.en ~ .buttons > div:nth-of-type(2) {
+    margin-right: 0.5em;
+  }
+  .buttons > div:nth-of-type(3) {
+    grid-row: 1 / 3;
+    grid-column: 3;
   }
   #kanbun-text {
     width: 100%;
@@ -24,6 +29,7 @@
     padding: 5px;
   }
   .radios {
+    display: flex;
     flex-wrap: wrap;
     margin-bottom: 0.5em;
     gap: 0 1.5em;
@@ -80,6 +86,7 @@
     <button type="button" onclick="insertPair('«', '»')" lang="ja" class="origin" title="saidoku moji okurigana">再読文字送り仮名</button>
     <button type="button" onclick="insert('―')" lang="ja" class="origin" title="tateten">たて点 ―</button>
     <button type="button" onclick="insert('〻')" lang="ja" class="origin" title="ninojiten">二の字点 〻</button>
+    <button type="button" onclick="insertPair('‘', '’()')"><span lang="zh-CN">多个汉字整体注音</span><span lang="en">Multiple kanji in ruby</span></button>
   </div>
 </div>
 <div class="radios options">
@@ -140,9 +147,6 @@
     let s = textarea.value;
     let l = textarea.selectionStart;
     let r = textarea.selectionEnd;
-    console.log(s.substr(0, l));
-    console.log(s.substr(l, r));
-    console.log(s.substr(r));
     textarea.value = s.substr(0, l) + left + s.substr(l, r - l) + right + s.substr(r);
     textarea.selectionStart = r + left.length + right.length;
     textarea.selectionEnd = textarea.selectionStart;
@@ -156,7 +160,7 @@
     "使メバ[人]籍(せき)ヲシテ誠ニ不[乙]以テ[下]畜(やしな)ヒ[二]妻子ヲ[一]，憂フルヲ[中]饑(き)寒(かん)ヲ[上]亂サ[甲レ]心ヲ，有リテ[二]錢財[一]以(もつ)テ濟(な)サ[地]醫藥ヲ[天]…",
     "子曰ク，盍ゾ«ル»[三]各〻言ハ[二]爾ノ志ヲ[一]。",
     "孤之有ルハ[二]孔明[一]，猶ホ‹ごと›«キ»[二]魚之有ルガ[一レ]水也。",
-    "此レ乃チ信(しん)ノ之‘所―[三]以’(ゆゑん)為ル[二]陛下ノ禽(とりこ)ト[一]也。",
+    "此レ乃チ信(しん)之‘所―[三]以’(ゆゑん)為ル[二]陛下ノ禽(とりこ)ト[一]也。",
   ].join('\n')
   selectLang(document.getElementById("lang-selecter").value);
   convert();
