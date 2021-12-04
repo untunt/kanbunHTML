@@ -1,6 +1,6 @@
 # kanbunHTML
 
-This is a 漢文訓読<sub>_kanbun-kundoku_</sub> HTML display solution (maybe the best solution) supporting both アキ組<sub>_akigumi_</sub> and ベタ組<sub>_betagumi_</sub> typesetting. It converts annotated kanbun text to HTML and displays it.
+This is a _kanbun kundoku_ (漢文訓読) HTML display solution (probably the best) supporting both fixed inter-character spacing setting (<span lang="ja" title="akigumi">アキ組</span>) and solid setting (<span lang="ja" title="betagumi">ベタ組</span>) setting. It converts annotated kanbun text to HTML and displays it.
 
 An example converter: [phesoca.com/kanbun-html/](https://phesoca.com/kanbunhtml/).
 
@@ -22,11 +22,11 @@ Put annotated kanbun paragraphs in a `<div>`, and call `convertKanbunDiv()` to c
 
 Different components after kanji are annotated by different brackets:
 
-- `( )`: 振り仮名<sub>_furigana_</sub>
-- `{ }`: 送り仮名<sub>_okurigana_</sub> (these brackets can be omitted)
-- `‹ ›`: 振り仮名<sub>_furigana_</sub> for 再読文字<sub>_saidokumoji_</sub>
-- `« »`: 送り仮名<sub>_okurigana_</sub> for 再読文字<sub>_saidokumoji_</sub>
-- `[ ]`: 返り点<sub>_kaeriten_</sub>
+- `( )`: _furigana_ (<span lang="ja" title="furigana">振り仮名</span>)
+- `{ }`: _okurigana_ (<span lang="ja" title="okurigana">送り仮名</span>) (these brackets can be omitted)
+- `‹ ›`: _furigana_ (<span lang="ja" title="furigana">振り仮名</span>) of _saidokumoji_ (<span lang="ja" title="saidokumoji">再読文字</span>)
+- `« »`: _okurigana_ (<span lang="ja" title="okurigana">送り仮名</span>) of _saidokumoji_ (<span lang="ja" title="saidokumoji">再読文字</span>)
+- `[ ]`: _kaeriten_ (<span lang="ja" title="kaeriten">返り点</span>)
 - Punctuation (no annotation)
 
 This is the recommended order of components after one kanji in kanbun annotation. However, in practice, they will be displayed correctly in any order.
@@ -35,11 +35,11 @@ This is the recommended order of components after one kanji in kanbun annotation
 
 Several class values can be given to the kanbun `<div>`:
 
-- `kanbun`: Use kanbun style
-- `betagumi`: Use ベタ組<sub>_betagumi_</sub> (the default typesetting method is アキ組<sub>_akigumi_</sub>)
-- `okurigana-sinking`: Make 送り仮名<sub>_okurigana_</sub> sink 1/4 kanji-height when without 振り仮名<sub>_furigana_</sub>
-- `split-touching-kana`: Split adjacent kana of different kanji if they touch with each other (effective only under ベタ組<sub>_betagumi_</sub>)
-- `furigana-top-align`: Align 振り仮名<sub>_furigana_</sub> to the center of kanji when without 送り仮名<sub>_okurigana_</sub> (effective only under ベタ組<sub>_betagumi_</sub>)
+- `kanbun`: Display in kanbun style
+- `betagumi`: Use solid setting (<span lang="ja" title="betagumi">ベタ組</span>) (the default is fixed inter-character spacing setting (<span lang="ja" title="akigumi">アキ組</span>))
+- `okurigana-sinking`: Make _okurigana_ (<span lang="ja" title="okurigana">送り仮名</span>) sink 1/4 em height when without _furigana
+- `split-touching-kana`: When using solid setting (<span lang="ja" title="betagumi">ベタ組</span>), insert 1/2 em spacing between two adjacent kanji if their kana touch with each other
+- `furigana-top-align`: When using solid setting (<span lang="ja" title="betagumi">ベタ組</span>), align _furigana_ (<span lang="ja" title="furigana">振り仮名</span>) to the center of kanji when without _okurigana_ (<span lang="ja" title="okurigana">送り仮名</span>)
 - `show-borders`: Show borders of elements (for debugging)
 
 ## Special Thanks
@@ -58,4 +58,5 @@ Several class values can be given to the kanbun `<div>`:
   3. [漢文の送り仮名・読み仮名の配置処理](http://www.jagat.or.jp/archives/21747)
 - cat_in_136. [如何用HTML5 Complex Ruby寫漢文訓讀文。](https://cat-in-136.github.io/2016/10/writing-kanbun-in-html.html), **2016**.
 - kawabata. [漢文訓読JavaScript](https://github.com/kawabata/kanbun-javascript). **2013**. (also [漢字データベースプロジェクト](http://kanji-database.sourceforge.net/software/kanbun.html))
-- W3C. [CSS Ruby Annotation Layout Module Level 1](https://www.w3.org/TR/css-ruby-1/). W3C Working Draft, **2021**.
+- Elika J. Etemad, et al. [CSS Ruby Annotation Layout Module Level 1](https://www.w3.org/TR/css-ruby-1/). W3C Working Draft, **2021**.
+- 千葉弘幸, et al. [日本語組版処理の要件](https://www.w3.org/TR/jlreq/). W3C Working Group Note, **2020**.

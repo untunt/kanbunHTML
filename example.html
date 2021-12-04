@@ -8,78 +8,125 @@
     max-width: 100%;
     min-height: 1em;
   }
-  body > div button:first-of-type {
-    margin-left: 0;
+  .buttons,
+  .radios {
+    display: flex;
+  }
+  .buttons > * {
+    margin: auto 0;
+  }
+  .buttons > div:first-of-type {
     margin-right: 2em;
   }
-  textarea {
+  #kanbun-text {
     width: 100%;
     font-size: 1rem;
     padding: 5px;
+  }
+  .radios {
+    flex-wrap: wrap;
+    margin-bottom: 0.5em;
+    gap: 0 1.5em;
   }
   label {
     display: block;
     margin: 0 0 0.5em 1.5em;
     width: fit-content;
   }
-  label.radio {
-    float: left;
-    margin-right: 2em;
-}
   label input {
     width: 1em;
     margin: 0 0.5em 0 -1.5em;
   }
+  #lang-select.zh-CN ~ div [lang]:not([lang="zh-CN"]):not(.origin),
+  #lang-select.en ~ div [lang]:not([lang="en"]):not(.origin),
+  #lang-select.all ~ .buttons [lang]:not([lang="en"]):not(.origin),
+  #lang-select:not(.all) ~ .options [lang] + br {
+    display: none;
+  }
+  span[title].origin {
+    border-bottom: 1px dotted #686878;
+  }
+  span[title].origin:hover {
+    color: #686878;
+  }
 </style>
 
-<div>This is a 漢文訓読<sub><em>kanbun-kundoku</em></sub> HTML display solution (maybe the best solution) supporting both アキ組<sub><em>akigumi</em></sub> and ベタ組<sub><em>betagumi</em></sub> typesetting. It converts annotated kanbun text to HTML and displays it.</div>
-<div>
-  <textarea rows="10" id="kanbun-text"></textarea>
+<div id="lang-select" class="">
+  <select id="lang-selecter" onchange="selectLang(this.value)">
+    <option value="en">English</option>
+    <option value="all" selected>English & 简体中文</option>
+    <option value="zh-CN">简体中文</option>
+  </select>
 </div>
 <div>
-  <button type="button" onclick="convert()">Convert!</button>Insert:
-  <button type="button" onclick="insertPair('‹', '›');">再読文字振り仮名</button>
-  <button type="button" onclick="insertPair('«', '»')">再読文字送り仮名</button>
-  <button type="button" onclick="insert('―')">たて点 ―</button>
-  <button type="button" onclick="insert('〻')">二の字点〻</button>
+  <p lang="zh-CN">这是一款汉文训读转换与排版工具（可能是目前网上最好的），同时支持疏排（<span lang="ja" class="origin" title="akigumi">アキ組</span>）和密排（<span lang="ja" class="origin" title="betagumi">ベタ組</span>）。输入带标注的汉文文本，点击“转换”，即可将其转换为HTML显示。</p>
+  <p lang="en">This is a <em>kanbun kundoku</em> (<span lang="ja" class="origin" title="kanbun kundoku">漢文訓読</span>) conversion and display tool (probably the best on the Internet) supporting both fixed inter-character spacing setting (<span lang="ja" class="origin" title="akigumi">アキ組</span>) and solid setting (<span lang="ja" class="origin" title="betagumi">ベタ組</span>). Enter annotated kanbun text and click “Convert” to convert it to HTML and display it.</p>
 </div>
 <div>
-  <div class="kanbun okurigana-sinking split-touching-kana" id="sample"></div>
+  <textarea rows="10" id="kanbun-text" lang="ja" class="origin"></textarea>
 </div>
-<div>
-  <label class="radio">
-    <input type="radio" name="betagumi" onclick="check(this, false)" autocomplete="off" checked="checked"
-    />アキ組<sub><em>akigumi</em></sub>
+<div class="buttons">
+  <div>
+    <button type="button" onclick="convert()"><span lang="zh-CN">转换</span><span lang="en">Convert</span></button>
+  </div>
+  <div>
+    <strong>
+      <span lang="zh-CN">插入：</span>
+      <span lang="en">Insert:</span>
+    </strong>
+  </div>
+  <div>
+    <button type="button" onclick="insertPair('‹', '›')" lang="ja" class="origin" title="saidoku moji furigana">再読文字振り仮名</button>
+    <button type="button" onclick="insertPair('«', '»')" lang="ja" class="origin" title="saidoku moji okurigana">再読文字送り仮名</button>
+    <button type="button" onclick="insert('―')" lang="ja" class="origin" title="tateten">たて点 ―</button>
+    <button type="button" onclick="insert('〻')" lang="ja" class="origin" title="ninojiten">二の字点 〻</button>
+  </div>
+</div>
+<div class="radios options">
+  <label>
+    <input type="radio" name="betagumi" onclick="check(this, false)" autocomplete="off" checked
+    /><span lang="zh-CN">疏排（<span lang="ja" class="origin" title="akigumi">アキ組</span>）</span><br
+    /><span lang="en">Fixed inter-character spacing setting (<span lang="ja" class="origin" title="akigumi">アキ組</span>)</span>
   </label>
-  <label class="radio">
+  <label>
     <input type="radio" name="betagumi" onclick="check(this, true)" autocomplete="off"
-    />ベタ組<sub><em>betagumi</em></sub>
+    /><span lang="zh-CN">密排（<span lang="ja" class="origin" title="betagumi">ベタ組</span>）</span><br
+    /><span lang="en">Solid setting (<span lang="ja" class="origin" title="betagumi">ベタ組</span>)</span>
   </label>
 </div>
 <div>
+  <div class="kanbun split-touching-kana origin" id="sample" lang="ja"></div>
+</div>
+<div class="options">
   <label>
-    <input type="checkbox" name="kanbun" onclick="check(this)" autocomplete="off" checked="checked"
-    />Use kanbun style
+    <input type="checkbox" name="kanbun" onclick="check(this)" autocomplete="off" checked
+    /><span lang="zh-CN">以汉文样式显示</span><br
+    /><span lang="en">Display in kanbun style</span>
   </label>
   <label>
-    <input type="checkbox" name="okurigana-sinking" onclick="check(this)" autocomplete="off" checked="checked"
-    />Make 送り仮名<sub><em>okurigana</em></sub> sink 1/4 kanji-height when without 振り仮名<sub><em>furigana</em></sub>
+    <input type="checkbox" name="okurigana-sinking" onclick="check(this)" autocomplete="off"
+    /><span lang="zh-CN">若该字无振假名，则送假名下降1/4字高</span><br
+    /><span lang="en">Make <em>okurigana</em> (<span lang="ja" class="origin" title="okurigana">送り仮名</span>) sink 1/4 em height when without <em>furigana</em> (<span lang="ja" class="origin" title="furigana">振り仮名</span>)</span>
   </label>
   <label>
-    <input type="checkbox" name="split-touching-kana" onclick="check(this)" autocomplete="off" checked="checked"
-    />Split adjacent kana of different kanji if they touch with each other (effective only under ベタ組<sub><em>betagumi</em></sub>)
+    <input type="checkbox" name="split-touching-kana" onclick="check(this)" autocomplete="off" checked
+    /><span lang="zh-CN">密排时，若相邻两字的假名紧贴，则插入1/2字高的间距</span><br
+    /><span lang="en">When using solid setting (<span lang="ja" class="origin" title="betagumi">ベタ組</span>), insert 1/2 em spacing between two adjacent kanji if their kana touch with each other</span>
   </label>
   <label>
     <input type="checkbox" name="furigana-center-align" onclick="check(this)" autocomplete="off"
-    />Align 振り仮名<sub><em>furigana</em></sub> to the center of kanji when without 送り仮名<sub><em>okurigana</em></sub> (effective only under ベタ組<sub><em>betagumi</em></sub>)
+    /><span lang="zh-CN">密排时，若该字无送假名，则振假名对齐于汉字中心</span><br
+    /><span lang="en">When using solid setting (<span lang="ja" class="origin" title="betagumi">ベタ組</span>), align <em>furigana</em> (<span lang="ja" class="origin" title="furigana">振り仮名</span>) to the center of kanji when without <em>okurigana</em> (<span lang="ja" class="origin" title="okurigana">送り仮名</span>)</span>
   </label>
   <label>
     <input type="checkbox" name="show-borders" onclick="check(this)" autocomplete="off"
-    />Show borders of elements (for debugging)
+    /><span lang="zh-CN">显示元素的边框（调试用）</span><br
+    /><span lang="en">Show borders of elements (for debugging)</span>
   </label>
 </div>
-<div>
-  <a href="https://github.com/untunt/kanbunHTML">Check out kanbunHTML on GitHub</a>
+<div class="options">
+  <a href="https://github.com/untunt/kanbunHTML"><span lang="zh-CN">在GitHub上查看kanbunHTML项目</span><br
+  /><span lang="en">Check out kanbunHTML on GitHub</span></a>
 </div>
 
 <script>
@@ -103,6 +150,7 @@
   }
   function insert(str) { insertPair('', str); }
   function check(box, v = box.checked) { sample.classList[v ? "add" : "remove"](box.name); }
+  function selectLang(v) { document.getElementById("lang-select").className = v; }
   textarea.value = [
     "感ジテハ[レ]時ニ花ニモ濺(そそ)ギ[レ]淚ヲ，恨ミデハ[レ]別レヲ鳥ニモ驚カス[レ]心ヲ。",
     "使メバ[人]籍(せき)ヲシテ誠ニ不[乙]以テ[下]畜(やしな)ヒ[二]妻子ヲ[一]，憂フルヲ[中]饑(き)寒(かん)ヲ[上]亂サ[甲レ]心ヲ，有リテ[二]錢財[一]以(もつ)テ濟(な)サ[地]醫藥ヲ[天]…",
@@ -110,5 +158,6 @@
     "孤之有ルハ[二]孔明[一]，猶ホ‹ごと›«キ»[二]魚之有ルガ[一レ]水也。",
     "此レ乃チ信(しん)ノ之‘所―[三]以’(ゆゑん)為ル[二]陛下ノ禽(とりこ)ト[一]也。",
   ].join('\n')
+  selectLang(document.getElementById("lang-selecter").value);
   convert();
 </script>

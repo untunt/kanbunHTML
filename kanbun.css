@@ -2,7 +2,6 @@
   writing-mode: vertical-rl;
   font-size: 2rem;
   line-height: 100%;
-  font-family: "A-OTF Shuei Mincho Pr6N", YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
   font-weight: 375;
 
   height: 600px;
@@ -10,6 +9,12 @@
   padding-bottom: 25px;
   max-width: 95%;
   overflow-x: auto;
+}
+
+.kanbun,
+.kanbun:lang(ja),
+.kanbun :lang(ja) {
+  font-family: "A-OTF Shuei Mincho Pr6N", YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "MS Mincho", serif;
 }
 
 .kanbun .dash,
