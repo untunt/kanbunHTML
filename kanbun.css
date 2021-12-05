@@ -1,13 +1,10 @@
 .kanbun {
   writing-mode: vertical-rl;
-  font-size: 2rem;
+  font-size: 1.75rem;
   line-height: 100%;
   font-weight: 375;
-
-  height: 600px;
+  height: 14em;
   padding: 1.2em 0.2em;
-  max-width: 95%;
-  overflow-x: auto;
 }
 
 .kanbun,

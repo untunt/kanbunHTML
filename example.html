@@ -31,7 +31,7 @@
   .radios {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 0.5em;
+    margin-bottom: 0;
     gap: 0 1.5em;
   }
   label {
@@ -42,6 +42,17 @@
   label input {
     width: 1em;
     margin: 0 0.5em 0 -1.5em;
+  }
+  .nums {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 3em auto;
+    grid-column-gap: 0.5em;
+    align-items: baseline;
+    margin-bottom: 0.5em;
+  }
+  .nums input {
+    grid-row: 1 / 3;
   }
   #lang-select.zh-CN ~ div [lang]:not([lang="zh-CN"]):not(.origin),
   #lang-select.en ~ div [lang]:not([lang="en"]):not(.origin),
@@ -54,6 +65,9 @@
   }
   span[title].origin:hover {
     color: #686878;
+  }
+  .samples {
+    overflow-x: auto;
   }
 </style>
 
@@ -101,8 +115,18 @@
     /><span lang="en">Solid setting (<span lang="ja" class="origin" title="betagumi">ベタ組</span>)</span>
   </label>
 </div>
-<div>
+<div class="samples">
   <div class="kanbun split-touching-kana origin" id="sample" lang="ja"></div>
+</div>
+<div class="radios options">
+  <div class="nums">
+    <input type="number" value="28" min="24" max="48" onchange="setFontSize(this.value)" autocomplete="off"
+    /><span lang="zh-CN">字号</span><span lang="en">Font size</span>
+  </div>
+  <div class="nums">
+    <input type="number" value="14" min="5" max="40" onchange="setHeight(this.value)" autocomplete="off"
+    /><span lang="zh-CN">汉文窗口高度（单位：字高）</span><span lang="en">Kanbun windows height (in em)</span>
+  </div>
 </div>
 <div class="options">
   <label>
@@ -152,16 +176,18 @@
     textarea.selectionEnd = textarea.selectionStart;
     textarea.focus();
   }
-  function insert(str) { insertPair('', str); }
+  function insert(str) { insertPair("", str); }
   function check(box, v = box.checked) { sample.classList[v ? "add" : "remove"](box.name); }
   function selectLang(v) { document.getElementById("lang-select").className = v; }
+  function setFontSize(v) { sample.style.fontSize = v + "px"; }
+  function setHeight(v) { sample.style.height = v + "em"; }
   textarea.value = [
     "感ジテハ[レ]時ニ花ニモ濺(そそ)ギ[レ]淚ヲ，恨ミデハ[レ]別レヲ鳥ニモ驚カス[レ]心ヲ。",
     "使メバ[人]籍(せき)ヲシテ誠ニ不[乙]以テ[下]畜(やしな)ヒ[二]妻子ヲ[一]，憂フルヲ[中]饑(き)寒(かん)ヲ[上]亂サ[甲レ]心ヲ，有リテ[二]錢財[一]以(もつ)テ濟(な)サ[地]醫藥ヲ[天]…",
     "子曰ク，盍ゾ«ル»[三]各〻言ハ[二]爾ノ志ヲ[一]。",
     "孤之有ルハ[二]孔明[一]，猶ホ‹ごと›«キ»[二]魚之有ルガ[一レ]水也。",
     "此レ乃チ信(しん)之‘所―[三]以’(ゆゑん)為ル[二]陛下ノ禽(とりこ)ト[一]也。",
-  ].join('\n')
+  ].join("\n")
   selectLang(document.getElementById("lang-selecter").value);
   convert();
 </script>
