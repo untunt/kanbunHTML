@@ -55,6 +55,14 @@
   grid-template-columns: auto 0 0 1em;
 }
 
+.kanbun .has-2-kanji {
+  grid-template-columns: 3em 0 0 1em;
+}
+
+.kanbun .has-3-kanji {
+  grid-template-columns: 5em 0 0 1em;
+}
+
 .kanbun.betagumi .unit {
   grid-template-columns: 0.5em 0.5em auto 1fr;
   margin: 0;
@@ -77,16 +85,15 @@
 .kanbun .kanji {
   grid-row: 2;
   grid-column: 1 / 3;
-  height: 1em;
-}
-
-.kanbun .has-multiple-kanji .kanji {
-  height: max-content;
 }
 
 .kanbun .has-multiple-kanji .unit {
   grid-template-rows: 0 1em 0;
   margin: 0;
+}
+
+.kanbun:not(.betagumi) .has-multiple-kanji .unit {
+  height: 2em;
 }
 
 .kanbun:not(.betagumi) .has-multiple-kanji .unit:last-of-type {
@@ -96,23 +103,26 @@
 .kanbun .furigana {
   grid-row: 1;
   grid-column: 1 / 4;
+  white-space: nowrap;
   height: max-content;
   justify-self: center;
-}
-
-.kanbun .has-multiple-kanji .furigana {
-  height: -moz-available;
-  height: -webkit-fill-available;
-  height: fill-available;
-  text-align: justify;
-  text-align-last: justify;
+  display: block;
 }
 
 .kanbun.betagumi .has-okurigana.has-less-than-3-furigana .furigana {
   grid-column: 1;
 }
 
-.kanbun.betagumi:not(.furigana-center-align) .furigana {
+.kanbun .has-multiple-kanji .furigana {
+  grid-column: 1 / 3;
+  height: auto;
+  justify-self: stretch;
+  text-justify: distribute;
+  text-align: justify;
+  text-align-last: justify;
+}
+
+.kanbun.betagumi:not(.furigana-center-align) .unit:not(.has-multiple-kanji) .furigana {
   justify-self: start;
 }
 
@@ -124,11 +134,16 @@
 .kanbun.betagumi .has-less-than-3-furigana .okurigana {
   grid-row: 1;
   grid-column: 2 / 5;
+  white-space: nowrap;
   height: max-content;
 }
 
 .kanbun .has-furigana .okurigana {
   grid-column: 4;
+}
+
+.kanbun .has-multiple-kanji .okurigana {
+  grid-column: 3 / 5;
 }
 
 .kanbun.okurigana-sinking .unit:not(.has-furigana) .okurigana,
@@ -158,6 +173,7 @@
 
 .kanbun .kaeriten {
   align-self: end;
+  white-space: nowrap;
   height: max-content;
   z-index: 50;
 }
@@ -174,6 +190,7 @@
 .kanbun .saidoku {
   grid-row: 3;
   grid-column: 1 / 5;
+  white-space: nowrap;
   height: max-content;
 }
 
@@ -205,6 +222,10 @@
 
 .kanbun.show-borders .unit > * {
   outline: 1px solid #2196f3;
+}
+
+.kanbun.show-borders .unit.has-multiple-kanji > .kanji {
+  outline: 0;
 }
 
 .kanbun .kunten:not(.punctuation) {
