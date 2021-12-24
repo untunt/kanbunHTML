@@ -1,9 +1,9 @@
 const brackets = {
     '(': ')', // furigana
-    '[': ']', // okurigana (these brackets can be omitted)
-    '{': '}', // kaeriten
-    '‹': '›', // furigana for saidokumoji
-    '«': '»', // okurigana for saidokumoji
+    '{': '}', // okurigana (these brackets can be omitted)
+    '‹': '›', // furigana of saidokumoji
+    '«': '»', // okurigana of saidokumoji
+    '[': ']', // kaeriten
     //'<': '>', // HTML tag
 };
 const leftBrackets = Object.keys(brackets);
