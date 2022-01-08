@@ -2,7 +2,7 @@
 
 This is a _kanbun kundoku_ (漢文訓読) HTML display solution (probably the best) supporting both fixed inter-character spacing setting (<span lang="ja" title="akigumi">アキ組</span>) and solid setting (<span lang="ja" title="betagumi">ベタ組</span>) setting. It converts annotated kanbun text to HTML and displays it.
 
-An example converter: [phesoca.com/kanbun-html/](https://phesoca.com/kanbunhtml/).
+An example converter: [phesoca.com/kanbun-html/](https://phesoca.com/kanbun-html/).
 
 ## Usage
 
