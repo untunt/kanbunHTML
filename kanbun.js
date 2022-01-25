@@ -63,6 +63,7 @@ function toHTML(str) {
     str = str.replace(/(unit">‘([^⌊’]*⌊){2}[^⌊’]*’)/g, 'has-2-kanji $1');
     str = str.replace(/(unit">‘([^⌊’]*⌊){3}[^⌊’]*’)/g, 'has-3-kanji $1');
     str = str.replace(/(unit">(‘[^’]*’)?[^‘”]*\()/g, 'has-furigana $1');
+    str = str.replace(/(unit">(‘[^’]*’)?[^‘”]*\([^\)]\))/g, 'has-only-1-furigana $1');
     str = str.replace(/(unit">(‘[^’]*’)?[^‘”]*\([^\)][^\)]?\))/g, 'has-less-than-3-furigana $1');
     str = str.replace(/(unit">(‘[^’]*’)?[^‘”]*”[^‘”]*has-furigana)/g, 'next-unit-has-furigana $1');
     str = str.replace(/(unit">(‘[^’]*’)?[^‘”]*\{)/g, 'has-okurigana $1');

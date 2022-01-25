@@ -74,9 +74,9 @@
 }
 
 .kanbun.betagumi.split-touching-kana
-  .next-unit-has-furigana:not(.has-okurigana):not(.has-multiple-kanji.has-less-than-3-furigana)
+  .next-unit-has-furigana:not(.has-okurigana):not(.has-multiple-kanji.has-less-than-3-furigana):not(.has-only-1-furigana)
   .furigana {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 .kanbun .kanji {
@@ -161,7 +161,7 @@
 .kanbun.betagumi.okurigana-sinking.split-touching-kana
   .next-unit-has-furigana:not(.has-furigana)
   .okurigana {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 
 .kanbun .kaeriten,
