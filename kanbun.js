@@ -38,7 +38,7 @@ function replaceBetween(str, left, right, from, to, condition = function () { re
 }
 
 function toHTML(str) {
-    let arr = str.split('');
+    let arr = [...str];
     for (let i = 0, lastBracketIndex = -1; i < arr.length; i++) {
         if (leftBrackets.includes(arr[i])) lastBracketIndex = i;
         if (lastBracketIndex === -1) {
