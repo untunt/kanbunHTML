@@ -17,6 +17,11 @@ const otherBrackets = {
     '“': '”', // unit (usually contains only one kanji)
 };
 const punctuationStr = '〻―・、，。…「」『』';
+// Kanbun block (U+3190–U+319F), see https://www.unicode.org/charts/PDF/U3190.pdf
+// U+3190 (tateten) is mapped to ―; U+3191 (kaeriten re) to レ;
+// U+3192–U+319F to the ideographs given by their <super> decompositions
+const kanbunMarks = '㆐㆑㆒㆓㆔㆕㆖㆗㆘㆙㆚㆛㆜㆝㆞㆟';
+const kanbunMarksMapped = '―レ一二三四上中下甲乙丙丁天地人';
 
 function isKana(str) {
     let code = str.charCodeAt();
@@ -38,6 +43,9 @@ function replaceBetween(str, left, right, from, to, condition = function () { re
 }
 
 function toHTML(str) {
+    // kaeriten marks (U+3191–U+319F) outside [ ] are wrapped in [ ] (these brackets can be omitted)
+    str = str.replace(/\[[^\]]*\]|[㆑-㆟]+/g, function (s) { return s[0] === '[' ? s : `[${s}]`; });
+    str = str.replace(/[㆐-㆟]/g, function (c) { return kanbunMarksMapped[kanbunMarks.indexOf(c)]; });
     let arr = [...str];
     for (let i = 0, lastBracketIndex = -1; i < arr.length; i++) {
         if (leftBrackets.includes(arr[i])) lastBracketIndex = i;

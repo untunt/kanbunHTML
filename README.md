@@ -29,6 +29,11 @@ Different components after kanji are annotated by different brackets:
 - `[ ]`: _kaeriten_ (<span lang="ja" title="kaeriten">返り点</span>)
 - Punctuation (no annotation)
 
+Characters in the Unicode [Kanbun](https://www.unicode.org/charts/PDF/U3190.pdf) block are also accepted:
+
+- `㆑㆒㆓㆔㆕㆖㆗㆘㆙㆚㆛㆜㆝㆞㆟` (U+3191–U+319F) are treated as _kaeriten_ (<span lang="ja" title="kaeriten">返り点</span>) and displayed as `レ一二三四上中下甲乙丙丁天地人`; the `[ ]` around them can be omitted (e.g. `有ルガ㆒㆑水` is the same as `有ルガ[一レ]水`)
+- `㆐` (U+3190) is treated as _tateten_ (<span lang="ja" title="tateten">竪点</span>), the same as `―`
+
 This is the recommended order of components after one kanji in kanbun annotation. However, in practice, they will be displayed correctly in any order.
 
 ## Class Description
